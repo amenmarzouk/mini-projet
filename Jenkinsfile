@@ -28,11 +28,23 @@ pipeline {
                 }
             }
         }
+    stage('deploy docker container') {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-login') {
+                        def docker_image = docker.image("${DOCKER_IMAGE}:tag")
+                        docker_image.run('-d --name my-container -p 8000:8000')
+                    }
+                }
+            }
+        }
     }
-
     post {
-        always {
-            cleanWs() 
+        success {
+            echo 'Deployment successful!'
+        }
+        failure {
+            echo 'Deployment failed.'
         }
     }
 }
