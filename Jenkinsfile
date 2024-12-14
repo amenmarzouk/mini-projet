@@ -31,7 +31,9 @@ pipeline {
 
         stage('Clean Up') {
             steps {
+                  script {
                 bat 'docker rmi %DOCKER_IMAGE%:tag'
+                  }
             }
         }
     }
