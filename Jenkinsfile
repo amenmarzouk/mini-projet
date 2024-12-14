@@ -28,14 +28,6 @@ pipeline {
                 }
             }
         }
-
-        stage('Clean Up') {
-            steps {
-                  script {
-                docker.image("${DOCKER_IMAGE}:tag").remove()
-                  }
-            }
-        }
     }
 
     post {
