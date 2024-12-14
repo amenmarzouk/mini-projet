@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('clone code') {
             steps {
-                git 'https://github.com/yourusername/your-repository.git'
+                git 'https://github.com/amenmarzouk/mini-projet.git'
             }
         }
         stage('build docker image') {
