@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'amendev/mini-projet'  
+        DOCKER_IMAGE = 'amendev/mini-projet1'  
     }
 
     stages {
