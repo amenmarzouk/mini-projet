@@ -14,7 +14,7 @@ pipeline {
         stage('build docker image') {
             steps {
                 script {
-                  docker.build("${DOCKER_IMAGE}:tag")
+                  docker.build("${DOCKER_IMAGE}:v1")
                 }
             }
         }
@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-login') {
-                        docker.image("${DOCKER_IMAGE}:tag").push()
+                        docker.image("${DOCKER_IMAGE}:v1").push()
                     }
                 }
             }
@@ -32,7 +32,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-login') {
-                        def docker_image = docker.image("${DOCKER_IMAGE}:tag")
+                        def docker_image = docker.image("${DOCKER_IMAGE}:v1")
                         docker_image.run('--name mini-projet -p 8000:8000')
                     }
                 }
