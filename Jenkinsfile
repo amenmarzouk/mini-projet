@@ -14,7 +14,7 @@ pipeline {
         stage('build docker image') {
             steps {
                 script {
-                  docker.build('%DOCKER_IMAGE%:tag')
+                  docker.build('${DOCKER_IMAGE}:tag')
                 }
             }
         }
@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-login') {
-                        docker.image('%DOCKER_IMAGE%:tag').push()
+                        docker.image('${DOCKER_IMAGE}:tag').push()
                     }
                 }
             }
@@ -32,7 +32,7 @@ pipeline {
         stage('Clean Up') {
             steps {
                   script {
-                docker.image('%DOCKER_IMAGE%:tag').remove()
+                docker.image('${DOCKER_IMAGE}:tag').remove()
                   }
             }
         }
