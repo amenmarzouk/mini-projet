@@ -14,7 +14,7 @@ pipeline {
         stage('build docker image') {
             steps {
                 script {
-                    sh 'docker build -t $DOCKER_IMAGE:$tag .'
+                    bat 'docker build -t $DOCKER_IMAGE:$tag .'
                 }
             }
         }
@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-login') {
-                        sh 'docker push $DOCKER_IMAGE:tag'
+                        bat 'docker push $DOCKER_IMAGE:tag'
                     }
                 }
             }
@@ -31,8 +31,7 @@ pipeline {
 
         stage('Clean Up') {
             steps {
-              
-                sh 'docker rmi $DOCKER_IMAGE:tag'
+                bat 'docker rmi $DOCKER_IMAGE:tag'
             }
         }
     }
