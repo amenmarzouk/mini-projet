@@ -33,7 +33,7 @@ pipeline {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-login') {
                         def docker_image = docker.image("${DOCKER_IMAGE}:tag")
-                        docker_image.run('-d --name my-container -p 8000:8000')
+                        docker_image.run('--name my-container -p 8000:8000')
                     }
                 }
             }
