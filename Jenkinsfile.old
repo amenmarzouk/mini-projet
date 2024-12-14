@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'amendev/mini-projet'  
+        DOCKER_IMAGE = 'amendev/mini-projet1'  
     }
 
     stages {
@@ -14,7 +14,7 @@ pipeline {
         stage('build docker image') {
             steps {
                 script {
-                  docker.build("${DOCKER_IMAGE}:tag")
+                bat "docker build -t ${DOCKER_IMAGE}:tag ."
                 }
             }
         }
@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-login') {
-                        docker.image("${DOCKER_IMAGE}:tag").push()
+                        bat "docker push ${DOCKER_IMAGE}:tag"
                     }
                 }
             }
