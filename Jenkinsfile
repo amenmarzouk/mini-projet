@@ -22,7 +22,7 @@ pipeline {
         stage('push docker image') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-login') {
+                    docker.withRegistry('https://hub.docker.com', 'docker-hub-login') {
                         docker.image("${DOCKER_IMAGE}:v1").push()
                     }
                 }
@@ -31,7 +31,7 @@ pipeline {
     stage('deploy docker container') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-login') {
+                    docker.withRegistry('https://hub.docker.com', 'docker-hub-login') {
                         def docker_image = docker.image("${DOCKER_IMAGE}:v1")
                         docker_image.run('--name mini-projet -p 8000:8000')
                     }
