@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'amendev/mini_projet'  
+        DOCKER_IMAGE = 'amendev/mini-projet'  
     }
 
     stages {
@@ -33,7 +33,7 @@ pipeline {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-login') {
                         def docker_image = docker.image("${DOCKER_IMAGE}:v1")
-                        docker_image.run('--name mini_projet -p 8000:8000')
+                        docker_image.run('--name mini-projet -p 8000:8000')
                     }
                 }
             }
