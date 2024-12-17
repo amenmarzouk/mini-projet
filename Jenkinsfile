@@ -33,7 +33,7 @@ pipeline {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-login') {
                         def docker_image = docker.image("${DOCKER_IMAGE}:v1")
-                        docker_image.run('--name mini-projet -p 8000:8000')
+                        docker_image.run('--name mini-projet -p 8020:8020')
                     }
                 }
             }
