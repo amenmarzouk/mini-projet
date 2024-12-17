@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = 'amendev/mini-projet'  
+        VERSION_TAG = 'v1'
     }
 
     stages {
@@ -14,7 +15,7 @@ pipeline {
         stage('build docker image') {
             steps {
                 script {
-                  docker.build("${DOCKER_IMAGE}:v1")
+                  docker.build("${DOCKER_IMAGE}:${VERSION_TAG}")
                 }
             }
         }
@@ -23,7 +24,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-login') {
-                        docker.image("${DOCKER_IMAGE}:v1").push()
+                        docker.image("${DOCKER_IMAGE}:${VERSION_TAG}").push()
                     }
                 }
             }
@@ -32,19 +33,11 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-login') {
-                        def docker_image = docker.image("${DOCKER_IMAGE}:v1")
+                        def docker_image = docker.image("${DOCKER_IMAGE}:${VERSION_TAG}")
                         docker_image.run('--name mini-projet -p 8020:8020')
                     }
                 }
             }
-        }
-    }
-    post {
-        success {
-            echo 'successful'
-        }
-        failure {
-            echo 'failed'
         }
     }
 }
