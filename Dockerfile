@@ -4,11 +4,11 @@ FROM node:20.17.0-alpine
 
 WORKDIR /app
 
-COPY . .
+COPY . ./
 
 
 RUN npm install
 
-EXPOSE 8000
+EXPOSE 8020
 
 CMD ["npm", "start"]
